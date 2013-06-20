@@ -222,8 +222,6 @@ namespace quad_tree
 			split();
 
 			return add(point_it);
-			
-			return true;
 		}
 		
 		inline bool has_children() const
