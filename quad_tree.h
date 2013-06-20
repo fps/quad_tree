@@ -7,7 +7,7 @@
 #include <cassert>
 #include <ostream>
 
-namespace greenfield
+namespace quad_tree
 {
 	/**
 		@brief A class representing a quad tree used for spatial indexing. 
