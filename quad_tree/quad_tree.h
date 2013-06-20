@@ -64,7 +64,7 @@ namespace quad_tree
 		
 		
 		/**
-			This constructor determined the total bounding box by iterating over all points.
+			This constructor determines the total bounding box by iterating over all points.
 			
 			NOTE: The iterator must be bidirectional.
 			
@@ -157,6 +157,15 @@ namespace quad_tree
 			{
 				throw std::runtime_error("Degenerate boundary");
 			}
+
+			if 
+			(
+				m_boundary.first[0] > m_boundary.second[0] ||
+				m_boundary.first[1] > m_boundary.second[1] 
+			)
+			{
+				throw std::runtime_error("Order of boundary points not preserved");
+			}
 		}
 		
 		inline void add(PointIterator points_begin, PointIterator points_end)
@@ -247,8 +256,9 @@ namespace quad_tree
 			// std::cout << "split" << std::endl;
 			
 			Point center;
-			center[0] = (m_boundary.second[0] - m_boundary.first[0]) / 2;
-			center[1] = (m_boundary.second[1] - m_boundary.first[1]) / 2;
+
+			center[0] = (m_boundary.second[0] + m_boundary.first[0]) / 2;
+			center[1] = (m_boundary.second[1] + m_boundary.first[1]) / 2;
 			
 			const Point &upper_left = m_boundary.first;
 			const Point &lower_right = m_boundary.second;
@@ -257,46 +267,62 @@ namespace quad_tree
 				North west
 			*/
 			m_north_west = quad_tree_ptr(new quad_tree_t(Boundary(upper_left, center)));
+
 			m_north_west->m_level = m_level + 1;
 			
 			/*
 				North east
 			*/
 			Point north_east_border_upper_left;
+
 			north_east_border_upper_left[0] = center[0];
 			north_east_border_upper_left[1] = upper_left[1];
 			
 			Point north_east_border_lower_right;
+
 			north_east_border_lower_right[0] = lower_right[0];
 			north_east_border_lower_right[1] = center[1];
 
-			Boundary north_east_boundary(north_east_border_upper_left, north_east_border_lower_right);
-			
-			m_north_east = quad_tree_ptr(new quad_tree_t(north_east_boundary));
+			m_north_east = quad_tree_ptr
+			(
+				new quad_tree_t
+				(
+					Boundary(north_east_border_upper_left, north_east_border_lower_right)
+				)
+			);
+
 			m_north_east->m_level = m_level + 1;
 
 			/*
 				South east
 			*/
 			m_south_east = quad_tree_ptr(new quad_tree_t(Boundary(center, lower_right)));
+
 			m_south_east->m_level = m_level + 1;
 			
 			/*
 				South west
 			*/
 			Point south_west_border_upper_left;
+
 			south_west_border_upper_left[0] = upper_left[0];
 			south_west_border_upper_left[1] = center[1];
 			
 			Point south_west_border_lower_right;
+
 			south_west_border_lower_right[0] = center[0];
 			south_west_border_lower_right[1] = lower_right[1];
 
-			Boundary south_west_boundary(south_west_border_upper_left, south_west_border_lower_right);
-			
-			m_south_west = quad_tree_ptr(new quad_tree_t(south_west_boundary));
-			m_south_west->m_level = m_level + 1;
+					
+			m_south_west = quad_tree_ptr
+			(
+				new quad_tree_t
+				(
+					Boundary(south_west_border_upper_left, south_west_border_lower_right)
+				)
+			);
 
+			m_south_west->m_level = m_level + 1;
 			
 			/*
 				Distribute points
@@ -345,7 +371,7 @@ namespace quad_tree
 	std::ostream &operator<<(std::ostream &o, const quad_tree<Point, PointIterator, NodeCapacity> &tree)
 	{
 		feed_spaces(tree.m_level, o);
-		o << "Node [" << tree.m_boundary.first[0] << " " << tree.m_boundary.first[1] << "] [" << tree.m_boundary.second[0] << " " << tree.m_boundary.second[1] << "] => ";
+		o << "Node [" << tree.m_boundary.first[0] << " " << tree.m_boundary.first[1] << "] [" << tree.m_boundary.second[0] << " " << tree.m_boundary.second[1] << "] => ( ";
 		
 		typedef quad_tree<Point, PointIterator, NodeCapacity> quad_tree_t;
 		
@@ -354,7 +380,7 @@ namespace quad_tree
 			o << "[" << (*(*it))[0] << " " << (*(*it))[1] << "] "; 
 		}
 
-		o << std::endl;
+		o << ")" << std::endl;
 		
 		if (true == tree.has_children())
 		{
