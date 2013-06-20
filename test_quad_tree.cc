@@ -6,8 +6,12 @@
 
 #include <unistd.h>
 
+#include <boost/timer/timer.hpp>
+
 int main()
 {
+	boost::timer::auto_cpu_timer t;
+
 	typedef boost::array<float, 2> Point;
 	typedef std::vector<Point>::iterator PointIterator;
 	
@@ -15,7 +19,7 @@ int main()
 	
 	std::vector<Point> points;
 	
-	for (size_t index = 0; index < 98; ++index)
+	for (size_t index = 0; index < 100098; ++index)
 	{
 		Point p;
 		

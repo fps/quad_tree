@@ -33,8 +33,12 @@ namespace quad_tree
 		an original data set. That also means that if you add any points they must be alive for 
 		the whole life time of the quad_tree object otherwise its operations become undefined (all 
 		except the destructor).
+
+		NOTE: If CheckUniqueness is false then adding two points with identical coordinates
+		will lead to undefined behaviour. If it is true, then additional bookkeeping is 
+		performed increasing the cost of adding a point.
 	*/
-	template<class Point, class PointIterator, int NodeCapacity>
+	template<class Point, class PointIterator, int NodeCapacity, bool CheckUniqueness = false>
 	struct point_quad_tree
 	{
 		typedef point_quad_tree<Point, PointIterator, NodeCapacity> quad_tree_t;
