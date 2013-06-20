@@ -39,7 +39,7 @@ int main()
 	
 	points.push_back(p2);
 
-	typedef greenfield::quad_tree<Point, PointIterator, capacity> quad_tree;
+	typedef quad_tree::quad_tree<Point, PointIterator, capacity> quad_tree;
 		
 	quad_tree tree(points.begin(), points.end());
 	

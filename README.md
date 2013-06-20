@@ -1,4 +1,18 @@
-quad_tree
-=========
+# quad_tree
 
-An exercise in genericity
+An implementation of a quad tree for points.
+
+# How to use
+
+Copy the header to your project and use it.
+
+# How to build
+
+There is nothing to build except for the little test program.
+
+# Author
+
+Florian Paul Schmidt (mista.tapas@gmx.net)
+
+
+
