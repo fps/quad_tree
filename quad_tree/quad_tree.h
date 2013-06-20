@@ -348,6 +348,8 @@ namespace quad_tree
 				{
 					break;
 				}
+
+				throw std::logic_error("This should not happen");
 			}
 			
 			m_points.clear();
