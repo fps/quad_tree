@@ -44,4 +44,6 @@ int main()
 	quad_tree tree(points.begin(), points.end());
 	
 	std::cout << tree << std::endl;
+
+	std::cout << tree.number_of_points() << std::endl;
 }

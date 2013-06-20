@@ -220,6 +220,8 @@ namespace quad_tree
 			}
 			
 			split();
+
+			return add(point_it);
 			
 			return true;
 		}
@@ -331,31 +333,25 @@ namespace quad_tree
 			for (typename std::set<PointIterator>::iterator it = m_points.begin(); it != m_points.end(); ++it)
 			{
 				add(*it);
-#if 0
-				if (true == m_north_west->add(*it))
-				{
-					break;
-				}
-				
-				if (true == m_north_east->add(*it))
-				{
-					break;
-				}
-				
-				if (true == m_south_east->add(*it))
-				{
-					break;
-				}
-				
-				if (true == m_south_west->add(*it))
-				{
-					break;
-				}
-				throw std::logic_error("This should not happen");
-#endif
 			}
 			
 			m_points.clear();
+		}
+
+		size_t number_of_points()
+		{
+			size_t own_number = m_points.size();
+
+			if (true == has_children())
+			{
+				own_number += 
+					m_north_west->number_of_points() + 
+					m_north_east->number_of_points() + 
+					m_south_east->number_of_points() + 
+					m_south_west->number_of_points();
+			}
+	
+			return own_number;
 		}
 		
 		/**
