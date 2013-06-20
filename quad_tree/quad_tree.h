@@ -1,3 +1,16 @@
+/*
+	This software is provided AS IS without any guarantee about even  
+	implied usefulness. It is NOT error free. It might and probably
+	will destroy all your belongings. You can NOT sue me if that happens.
+
+	You can use this software in any way you want given that you keep
+	this disclaimer and the following copyright notice intact. If you
+	change this software you are free to redistribute and ADD your own
+	copyright notice below.
+
+	copyright 2013 Florian Paul Schmidt (mista.tapas@gmx.net)
+*/
+
 #ifndef GREENFIELD_QUAD_TREE_HH
 #define GREENFIELD_QUAD_TREE_HH
 
