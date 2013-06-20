@@ -35,9 +35,9 @@ namespace quad_tree
 		except the destructor).
 	*/
 	template<class Point, class PointIterator, int NodeCapacity>
-	struct quad_tree
+	struct point_quad_tree
 	{
-		typedef quad_tree<Point, PointIterator, NodeCapacity> quad_tree_t;
+		typedef point_quad_tree<Point, PointIterator, NodeCapacity> quad_tree_t;
 		
 		typedef boost::shared_ptr<quad_tree_t> quad_tree_ptr;
 		
@@ -71,7 +71,7 @@ namespace quad_tree
 			
 			NOTE: The range of points must not be empty;
 		*/	
-		quad_tree
+		point_quad_tree
 		(
 			PointIterator points_begin,
 			PointIterator points_end
@@ -120,7 +120,7 @@ namespace quad_tree
 			add(points_begin, points_end);
 		}
 		
-		quad_tree
+		point_quad_tree
 		(
 			const Boundary &boundary,
 			PointIterator points_begin,
@@ -135,7 +135,7 @@ namespace quad_tree
 			check_boundary();
 		}
 		
-		quad_tree
+		point_quad_tree
 		(
 			const Boundary &boundary
 		) 
@@ -369,12 +369,12 @@ namespace quad_tree
 	}
 	
 	template<class Point, class PointIterator, int NodeCapacity>
-	std::ostream &operator<<(std::ostream &o, const quad_tree<Point, PointIterator, NodeCapacity> &tree)
+	std::ostream &operator<<(std::ostream &o, const point_quad_tree<Point, PointIterator, NodeCapacity> &tree)
 	{
 		feed_spaces(tree.m_level, o);
 		o << "Node [" << tree.m_boundary.first[0] << " " << tree.m_boundary.first[1] << "] [" << tree.m_boundary.second[0] << " " << tree.m_boundary.second[1] << "] => ( ";
 		
-		typedef quad_tree<Point, PointIterator, NodeCapacity> quad_tree_t;
+		typedef point_quad_tree<Point, PointIterator, NodeCapacity> quad_tree_t;
 		
 		for (typename quad_tree_t::PointsSet::iterator it = tree.m_points.begin(); it != tree.m_points.end(); ++it)
 		{
