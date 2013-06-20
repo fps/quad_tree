@@ -11,8 +11,8 @@
 	copyright 2013 Florian Paul Schmidt (mista.tapas@gmx.net)
 */
 
-#ifndef GREENFIELD_QUAD_TREE_HH
-#define GREENFIELD_QUAD_TREE_HH
+#ifndef FPS_QUAD_TREE_HH
+#define FPS_QUAD_TREE_HH
 
 #include <boost/shared_ptr.hpp>
 #include <set>
