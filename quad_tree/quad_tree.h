@@ -19,6 +19,7 @@
 #include <stdexcept>
 #include <cassert>
 #include <ostream>
+#include <utility>
 
 namespace quad_tree
 {
